@@ -1,3 +1,3 @@
 export default function PortfolioPage() {
-    return <div>Portfolio</div>
+    return <div>skills</div>
 }
