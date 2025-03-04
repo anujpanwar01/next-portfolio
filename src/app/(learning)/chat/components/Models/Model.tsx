@@ -1,29 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { OptionType } from "./types";
 import Select from "react-select";
 import { getModels } from "./utils";
+import ChatContext from "../../store/context";
+import { CHAT_ACTIONS } from "../../store/constant";
 
 const models = getModels();
 
 export default function Models() {
-  const [modelOption, setModelOptions] = useState<OptionType>(models[0]);
+  const { state, dispatch } = useContext(ChatContext);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   const handleChange = (data: OptionType | null) => {
     if (!data) return;
-
-    setModelOptions(data);
+    dispatch(CHAT_ACTIONS.SET_MODEL, data);
   };
+
+  console.log(state);
   return (
     <Select
       options={models}
@@ -31,7 +32,7 @@ export default function Models() {
       backspaceRemovesValue={false}
       blurInputOnSelect={true}
       captureMenuScroll={false}
-      value={modelOption}
+      value={state.model}
       isSearchable={false}
     />
   );
