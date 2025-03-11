@@ -2,6 +2,7 @@ import { OptionType } from "../components/Models/types";
 
 export type STATE_TYPE = {
     model: OptionType;
+    userMsg: string;
 };
 
 export type OBJECT_TYPE = {
