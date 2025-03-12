@@ -1,10 +1,24 @@
+/* eslint-disable react/display-name */
 "use client";
 
-import { InputType } from "./type";
+import React from "react";
 
-const Input = (props: InputType) => {
-    const { name, type = "text", value, handleChange, placeholder } = props;
+// import { InputType } from "./type";
 
-    return <input name={name} type={type} value={value} onChange={handleChange} placeholder={placeholder} />;
-};
+const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
+    ({ name, type = "text", value, placeholder, onChange, ...props }, ref) => {
+        return (
+            <input
+                className={props.className || "multi-form multi-form-" + name}
+                name={name}
+                type={type}
+                value={value}
+                onChange={onChange}
+                placeholder={placeholder}
+                ref={ref}
+                {...props}
+            />
+        );
+    },
+);
 export default Input;

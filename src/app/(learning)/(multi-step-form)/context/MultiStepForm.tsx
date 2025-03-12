@@ -1,3 +1,4 @@
+"use client";
 import React, { useReducer } from "react";
 import { MultiStepFormProviderType } from "./type";
 import { reducer } from "./reducer";

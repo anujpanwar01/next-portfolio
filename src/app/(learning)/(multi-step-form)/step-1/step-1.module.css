@@ -1,0 +1,26 @@
+.parent {
+    border: 1px solid blue;
+    border-radius: 4px;
+    padding: 32px;
+}
+.multiFormLabel {
+    position: absolute;
+    left: 5%;
+    bottom: 45%;
+    color: gray;
+    background: white;
+    height: fit-content;
+}
+
+.input-container {
+    width: 100%;
+    position: relative;
+
+    input {
+        width: 100%;
+        padding: 8px 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 16px;
+    }
+}
