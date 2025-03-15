@@ -6,20 +6,20 @@ import MultiStepFromContext from "../context/MultiStepForm";
 import { STEP_ONE_INPUT_DATA } from "./constant";
 import styles from "./step-1.module.css";
 import Button from "../components/Button";
+import { validate } from "./utils";
 
 export default function Step1() {
     const { state, updateState } = React.useContext(MultiStepFromContext);
     const { step1 } = state;
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let hasError = false;
-        if (e.target.value === "") {
-            hasError = true;
-        }
-        updateState("UPDATE_STEP_1", { [e.target.name]: { value: e.target.value, error: hasError } });
+        updateState("UPDATE_STEP_1", { [e.target.name]: { value: e.target.value, error: false } });
     };
 
-    const goNextHandler = () => {};
+    const goNextHandler = () => {
+        const states = validate(state.step1.formData);
+        updateState("UPDATE_STEP_1", states);
+    };
 
     const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         const currentInp = state.step1.formData[e.target.name as keyof typeof state.step1.formData];
