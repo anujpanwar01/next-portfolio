@@ -7,6 +7,10 @@ export const reducer = <T>(state: INIT_STATE_TYPE, { type, payload }: { type: st
                 ...state,
                 step1: {
                     ...state.step1,
+                    formData: {
+                        ...state.step1.formData,
+                        ...payload,
+                    },
                     ...payload,
                 },
             };

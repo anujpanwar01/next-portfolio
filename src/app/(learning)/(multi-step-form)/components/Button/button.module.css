@@ -1,0 +1,19 @@
+.primary {
+    background: #4949d8;
+    color: white;
+    padding: 8px 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.secondary {
+    background: transparent;
+    color: black;
+    padding: 8px 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #4949d8;
+}
