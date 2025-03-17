@@ -11,7 +11,7 @@ const Button = ({
 
     return (
         <button
-            className={`multi-step-form-button ${buttonClass && Styles[buttonClass]} ${className ? className : ""}`}
+            className={`multi-step-form-button ${buttonClass && Styles[buttonClass]} ${className ? className : ""} ${Styles.button}`}
             {...props}
         >
             {props.children}

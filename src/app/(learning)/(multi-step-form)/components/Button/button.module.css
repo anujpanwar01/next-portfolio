@@ -17,3 +17,12 @@
     cursor: pointer;
     border: 1px solid #4949d8;
 }
+
+.button {
+    &[disabled] {
+        background: #ccc;
+        color: #666;
+        border: 1px solid #ccc;
+        cursor: not-allowed;
+    }
+}

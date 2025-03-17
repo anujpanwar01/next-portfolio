@@ -12,9 +12,15 @@ export type StepOneInputType = {
 };
 
 export type formStateType = {
-    name: { value: string; error: boolean };
-    email: { value: string; error: boolean };
-    phone: { value: string; error: boolean };
-    gender: { value: string; error: boolean };
-    dob: { value: string; error: boolean };
+    name: PropertyType;
+    email: PropertyType;
+    phone: PropertyType;
+    gender: PropertyType;
+    dob: PropertyType;
+    // [key: string]: PropertyType;
+};
+
+export type PropertyType = {
+    value: string;
+    error: boolean;
 };

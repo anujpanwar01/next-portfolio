@@ -14,6 +14,34 @@ export const reducer = <T>(state: INIT_STATE_TYPE, { type, payload }: { type: st
                     ...payload,
                 },
             };
+        case "UPDATE_STEP_2":
+            return {
+                ...state,
+                step2: {
+                    ...state.step2,
+                    formData: {
+                        ...state.step2.formData,
+                        ...payload,
+                    },
+                    ...payload,
+                },
+            };
+        case "UPDATE_ACTIVE_STEP":
+            return {
+                ...state,
+                activeStep: payload,
+            };
+        case "UPDATE_BUTTON_DISABLED":
+            const stepKey: "step1" | "step2" = payload.key;
+
+            return {
+                ...state,
+                [stepKey]: {
+                    ...state[stepKey],
+                    buttonDisabled: payload.value,
+                },
+            };
+            return { ...state };
         default:
             return state;
     }
