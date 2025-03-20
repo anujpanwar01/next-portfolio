@@ -8,21 +8,40 @@ export const validate = (step2FormData: formStateType): formStateType => {
 
         const nextState = { ...value };
 
-        if (typedKey === "address") {
-            nextState.error = value.value === "";
+        if (typedKey === "address" || typedKey === "landmark" || typedKey === "country") {
+            Object.assign(nextState, validateEmptyField(value.value, typedKey));
         }
-        if (typedKey === "city") {
-            nextState.error = value.value === "";
-        }
-        if (typedKey === "state") {
-            nextState.error = value.value === "";
-        }
+
         if (typedKey === "zip") {
-            const zipRegex = /^[0-9]{6}$/;
-            nextState.error = !zipRegex.test(value.value);
+            Object.assign(nextState, validateZip(value.value));
         }
         newState[typedKey] = nextState;
     });
 
     return newState;
+};
+
+const validateEmptyField = (value: string, fieldType: string) => {
+    if (value.trim() === "") {
+        return { errorMsg: `${fieldType} is required`, error: true };
+    }
+
+    if (!isNaN(+value) && typeof +value == "number") {
+        return { errorMsg: `${fieldType} can't be number`, error: true };
+    }
+
+    return { errorMsg: "", error: false };
+};
+
+const validateZip = (zip: string) => {
+    if (zip.trim() == "") {
+        return { errorMsg: "Zip code is required", error: true };
+    }
+
+    const zipRegex = /^[0-9]{6}$/;
+
+    if (!zipRegex.test(zip)) {
+        return { errorMsg: "Invalid zip code", error: true };
+    }
+    return { errorMsg: "", error: false };
 };

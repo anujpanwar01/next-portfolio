@@ -15,7 +15,6 @@ const Step2 = () => {
     const router = useRouter();
 
     useEffect(() => {
-        debugger;
         const data = Object.keys(state.step1.formData);
         const allFieldsFilled = data
             .filter((d) => d !== "dob")
@@ -29,6 +28,7 @@ const Step2 = () => {
     }, []);
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        updateState("UPDATE_BUTTON_DISABLED", { key: "step2", value: false });
         updateState("UPDATE_STEP_2", { [e.target.name]: { value: e.target.value, error: false } });
     };
     const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -41,7 +41,7 @@ const Step2 = () => {
         const newState = validate(state.step2.formData);
         const hasError = Object.entries(newState).some(([_, value]) => value.error);
 
-        if (!hasError) {
+        if (hasError) {
             updateState("UPDATE_STEP_2", newState);
             return;
         }
@@ -69,7 +69,7 @@ const Step2 = () => {
                         required={inp.required}
                         autoComplete={inp.autoComplete ? inp.name : "off"}
                         error={step2.formData[inp.name as keyof typeof step2.formData].error}
-                        errorMessage="This field is required"
+                        errorMessage={step2.formData[inp.name as keyof typeof step2.formData].errorMsg}
                     />
                 );
             })}

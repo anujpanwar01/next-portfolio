@@ -7,7 +7,7 @@ import { STEP_ONE_INPUT_DATA } from "./constant";
 import styles from "../step-1.module.css";
 import Button from "../components/Button";
 import { validate } from "./utils";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Step1() {
     const { state, updateState } = React.useContext(MultiStepFromContext);
@@ -15,6 +15,8 @@ export default function Step1() {
 
     const router = useRouter();
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        updateState("UPDATE_BUTTON_DISABLED", { key: "step1", value: false });
+
         const dataToSet = { [e.target.name]: { value: e.target.value, error: false } };
 
         if (e.target.name == "gender") {
@@ -104,7 +106,7 @@ export default function Step1() {
                 <Button buttonType="secondary" disabled={true}>
                     Back
                 </Button>
-                <Button buttonType="primary" onClick={goNextHandler}>
+                <Button buttonType="primary" onClick={goNextHandler} disabled={step1.buttonDisabled}>
                     Next
                 </Button>
             </div>

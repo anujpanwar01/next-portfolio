@@ -11,3 +11,8 @@ export type INIT_STATE_TYPE = {
     step1: STEP_ONE_INIT_STATE_TYPE;
     step2: STEP_TWO_INIT_STATE_TYPE;
 };
+
+export type BUTTON_TYPE = {
+    key: "step1" | "step2";
+    value: boolean;
+};

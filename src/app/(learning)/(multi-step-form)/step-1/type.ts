@@ -23,4 +23,5 @@ export type formStateType = {
 export type PropertyType = {
     value: string;
     error: boolean;
+    errorMsg?: string;
 };

@@ -1,4 +1,4 @@
-import { INIT_STATE_TYPE } from "./type";
+import { BUTTON_TYPE, INIT_STATE_TYPE } from "./type";
 
 export const reducer = <T>(state: INIT_STATE_TYPE, { type, payload }: { type: string; payload: T }) => {
     switch (type) {
@@ -29,19 +29,19 @@ export const reducer = <T>(state: INIT_STATE_TYPE, { type, payload }: { type: st
         case "UPDATE_ACTIVE_STEP":
             return {
                 ...state,
-                activeStep: payload,
+                activeStep: payload as number,
             };
         case "UPDATE_BUTTON_DISABLED":
-            const stepKey: "step1" | "step2" = payload.key;
+            const stepKey = (payload as BUTTON_TYPE).key;
 
             return {
                 ...state,
                 [stepKey]: {
                     ...state[stepKey],
-                    buttonDisabled: payload.value,
+                    buttonDisabled: (payload as BUTTON_TYPE).value,
                 },
             };
-            return { ...state };
+
         default:
             return state;
     }
