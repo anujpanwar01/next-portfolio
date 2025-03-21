@@ -7,12 +7,12 @@ import styles from "./input.module.css";
 
 const Input = React.forwardRef<
     HTMLInputElement,
-    React.InputHTMLAttributes<HTMLInputElement> & { errorMessage?: string; error?: boolean }
->(({ name, type = "text", value, placeholder, onChange, error = false, errorMessage, ...props }, ref) => {
+    React.InputHTMLAttributes<HTMLInputElement> & { errorMessage?: string; error?: boolean; labelName?: string }
+>(({ name, type = "text", value, placeholder, onChange, error = false, errorMessage, labelName, ...props }, ref) => {
     return (
         <div className="flex flex-col gap-2 mb-3">
             <label htmlFor={name} className="flex gap-1">
-                {placeholder}
+                {labelName || placeholder}
                 {props.required && (
                     <span className="text-red-500" aria-hidden="true">
                         *

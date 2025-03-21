@@ -15,7 +15,11 @@ export const MultiStepFromProvider = ({ children }: MultiStepFormProviderType) =
     const updateState = <T,>(type: string, payload: T) => {
         dispatch({ type, payload });
     };
-    return <MultiStepFromContext.Provider value={{ state, updateState }}>{children}</MultiStepFromContext.Provider>;
+    return (
+        <MultiStepFromContext.Provider value={{ state: state as typeof INIT_STATE, updateState }}>
+            {children}
+        </MultiStepFromContext.Provider>
+    );
 };
 
 export default MultiStepFromContext;
