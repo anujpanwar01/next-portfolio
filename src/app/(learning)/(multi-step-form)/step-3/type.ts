@@ -10,3 +10,5 @@ export type formStateType = {
     expiryDate: PropertyType;
     securityCode: PropertyType;
 };
+
+export type Formatter = (value: string) => string;

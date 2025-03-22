@@ -1,56 +1,51 @@
-import { formStateType } from "./type";
+import { Formatter, formStateType } from "./type";
 
 export const getCardNumber = (value: string) => {
     const cardNumber = value.replace(/\D/g, "");
     return cardNumber;
 };
 
-export const getFormattedValueForUI = (name: string, value: string) => {
-    if (name === "cardNumber") {
-        return getUiFormattedCardNumber(value);
+export class UIFormatter {
+    private static formatters: Record<string, Formatter> = {
+        cardNumber: UIFormatter.formatCardNumber,
+        securityCode: UIFormatter.formatSecurityCode,
+        expiryDate: UIFormatter.formatExpiryDate,
+    };
+
+    static getFormatter(name: string): Formatter {
+        return UIFormatter.formatters[name];
     }
 
-    if (name === "securityCode") {
-        return getUISecurityCode(value);
+    private static formatCardNumber(value: string) {
+        if (value.length >= 19) {
+            return value.trim().slice(0, 19);
+        }
+
+        if (value.split(" ").join("").length % 4 == 0) {
+            return value + " ";
+        }
+
+        return value;
+    }
+    private static formatSecurityCode(value: string) {
+        if (value.length >= 3) {
+            return value.trim().slice(0, 3);
+        }
+        return value;
     }
 
-    if (name === "expiryDate") {
-        return getUIMonthAndYear(value);
+    private static formatExpiryDate(value: string) {
+        if (value.length >= 7) {
+            return value.trim().slice(0, 7);
+        }
+
+        if (value.length == 2) {
+            return value + " / ";
+        }
+
+        return value;
     }
-
-    return value;
-};
-
-export const getUiFormattedCardNumber = (value: string) => {
-    if (value.length >= 19) {
-        return value.trim().slice(0, 19);
-    }
-
-    if (value.split(" ").join("").length % 4 == 0) {
-        return value + " ";
-    }
-
-    return value;
-};
-
-export const getUISecurityCode = (value: string) => {
-    if (value.length >= 3) {
-        return value.trim().slice(0, 3);
-    }
-    return value;
-};
-
-export const getUIMonthAndYear = (value: string) => {
-    if (value.length >= 7) {
-        return value.trim().slice(0, 7);
-    }
-
-    if (value.length == 2) {
-        return value + " / ";
-    }
-
-    return value;
-};
+}
 
 export const getEmptyErrorMsg = (field: string) => {
     return { errorMsg: `${field} is required`, error: true };
@@ -77,6 +72,10 @@ export const securityCodeValidation = (value: string) => {
 
     if (isNaN(Number(value))) {
         return { errorMsg: "Security code only be number", error: true };
+    }
+
+    if (value.length < 3) {
+        return { errorMsg: "Invalid security code", error: true };
     }
     return { errorMsg: "", error: false };
 };
@@ -111,7 +110,7 @@ export const validate = (step3FormData: formStateType): formStateType => {
         }
 
         if (typedKey === "securityCode") {
-            Object.assign(nextState, cardNumberValidation(value.value));
+            Object.assign(nextState, securityCodeValidation(value.value));
         }
         newState[typedKey] = nextState;
     });

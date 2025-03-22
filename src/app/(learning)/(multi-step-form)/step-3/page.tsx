@@ -6,7 +6,7 @@ import styles from "../step-1.module.css";
 import MultiStepFromContext from "../context/MultiStepForm";
 import Button from "../components/Button";
 import { useRouter } from "next/navigation";
-import { getFormattedValueForUI, validate } from "./utils";
+import { UIFormatter, validate } from "./utils";
 
 export default function Step3() {
     const { state, updateState } = useContext(MultiStepFromContext);
@@ -15,7 +15,7 @@ export default function Step3() {
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        const modifiedValue = getFormattedValueForUI(name, value);
+        const modifiedValue = UIFormatter.getFormatter(name)(value);
 
         updateState("UPDATE_BUTTON_DISABLED", { key: "step3", value: false });
 
