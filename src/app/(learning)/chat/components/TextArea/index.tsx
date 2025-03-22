@@ -4,9 +4,6 @@ import { useContext } from "react";
 import ChatContext from "../../store/context";
 import { CHAT_ACTIONS } from "../../store/constant";
 
-import { AI_AND_ML_MODELS } from "../Models/constant";
-import { AIAndMlModelsType } from "../Models/types";
-
 export default function TextArea() {
     const { state, dispatch } = useContext(ChatContext);
 

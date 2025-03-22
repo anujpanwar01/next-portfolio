@@ -21,6 +21,7 @@ export default function Step3() {
         if (hasError) {
             router.replace("step-2");
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -44,7 +45,7 @@ export default function Step3() {
     const handleSave = async () => {
         const newState = validate(formData);
 
-        const hasError = Object.entries(newState).some(([_, value]) => value.error);
+        const hasError = Object.values(newState).some((value) => value.error);
 
         if (hasError) {
             updateState("UPDATE_STEP_3", newState);

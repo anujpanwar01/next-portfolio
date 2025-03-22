@@ -25,6 +25,7 @@ const Step2 = () => {
         if (!allFieldsFilled) {
             router.replace("step-1");
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +40,7 @@ const Step2 = () => {
 
     const goNextHandler = () => {
         const newState = validate(state.step2.formData);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const hasError = Object.entries(newState).some(([_, value]) => value.error);
 
         if (hasError) {

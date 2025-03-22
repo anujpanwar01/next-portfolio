@@ -27,6 +27,7 @@ export default function Step1() {
 
     const goNextHandler = () => {
         const states = validate(state.step1.formData);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const hasError = Object.entries(states).some(([_, value]) => value.error);
 
         if (hasError) {

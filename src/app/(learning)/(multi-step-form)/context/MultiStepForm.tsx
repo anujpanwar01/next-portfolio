@@ -6,6 +6,7 @@ import { INIT_STATE } from "./constant";
 
 const MultiStepFromContext = React.createContext({
     state: INIT_STATE,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     updateState: <T,>(type: string, payload: T) => {},
 });
 
