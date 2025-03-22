@@ -32,7 +32,7 @@ export default function Step3() {
         router.replace("step-2");
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const newState = validate(formData);
 
         const hasError = Object.entries(newState).some(([_, value]) => value.error);
@@ -41,7 +41,26 @@ export default function Step3() {
             updateState("UPDATE_STEP_3", newState);
             return;
         }
-        updateState("UPDATE_STEP_3", newState);
+
+        try {
+            const response = await fetch("/api/multi-step-wizard", {
+                method: "POST",
+                body: JSON.stringify(state),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (response.status !== 201 || !response.ok) {
+                throw new Error("Failed to save data");
+            }
+            const data = await response.json();
+            console.log(data);
+
+            router.replace("success");
+        } catch (e) {
+            console.error("Failed to save data", e);
+            prompt("Failed to save data");
+        }
     };
 
     return (
