@@ -2,12 +2,12 @@
     border: 1px solid blue;
     border-radius: 4px;
     padding: 32px;
-
-    h1 {
-        margin-bottom: 16px;
-        text-align: center;
-    }
 }
+.parent h1 {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
 .multiFormLabel {
     position: absolute;
     left: 5%;
@@ -20,14 +20,13 @@
 .input-container {
     width: 100%;
     position: relative;
-
-    input {
-        width: 100%;
-        padding: 8px 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-bottom: 16px;
-    }
+}
+.input-container input {
+    width: 100%;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 16px;
 }
 
 .button-group {
