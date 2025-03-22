@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Input from "../components/Input";
 import styles from "../step-1.module.css";
 import MultiStepFromContext from "../context/MultiStepForm";
@@ -13,6 +13,15 @@ export default function Step3() {
     const { formData, buttonDisabled } = state.step3;
     const router = useRouter();
 
+    useEffect(() => {
+        const hasError = Object.values(state.step2.formData).some((key) => {
+            return key.value.trim() === "";
+        });
+
+        if (hasError) {
+            router.replace("step-2");
+        }
+    }, []);
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         const modifiedValue = UIFormatter.getFormatter(name)(value);
@@ -105,7 +114,7 @@ export default function Step3() {
                     Back
                 </Button>
                 <Button buttonType="primary" onClick={handleSave} disabled={buttonDisabled}>
-                    Next
+                    Save
                 </Button>
             </div>
         </div>
